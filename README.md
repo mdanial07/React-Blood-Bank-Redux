@@ -1,1 +1,7 @@
-# React-Blood-Bank-Redux
+Saylani App
+-------------
+`npm install`
+
+`npm start`
+
+Open localhost:3000
