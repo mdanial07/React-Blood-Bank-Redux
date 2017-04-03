@@ -36,6 +36,7 @@ function AVAILABLE_DONORS_REDUCER(state = [], action) {
             return state;
     }
 }
+
 const CombineReducers = combineReducers({
 
     ISLOGGED: IS_LOGGED_REDUCER,
