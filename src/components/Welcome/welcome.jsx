@@ -31,8 +31,8 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators({ IsLoggedIn }, dispatch);
 }
 
-function mapStateToProps({ isLogged }) {
-    return { isLogged };
+function mapStateToProps({ islogged }) {
+    return { islogged };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Welcome);

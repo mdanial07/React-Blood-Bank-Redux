@@ -4,7 +4,7 @@ import { combineReducers } from 'redux';
 function IS_LOGGED_REDUCER(state = false, action) {
     switch (action.type) {
         case IS_LOGGED:
-            return action.isLoginIn;
+            return action.IsLoggedIn;
         default:
             return state;
     }

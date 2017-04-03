@@ -1,22 +1,22 @@
 import firebase from 'firebase';
 import { browserHistory } from 'react-router';
 
-export const IS_LOGGED = "is_loggedIn";
-export const LOGIN_DATA = "login_data";
-export const LOGIN_ERROR = "login_error";
-export const AVAILABLE_DONORS = "available_donors";
+export const IS_LOGGED = "Is_LoggedIn";
+export const LOGIN_DATA = "Login_Data";
+export const LOGIN_ERROR = "Login_Error";
+export const AVAILABLE_DONORS = "Available_Donors";
 
-export function IsLoggedIn(islogged) {
+export function IsLoggedIn(IsLoggedIn) {
     return {
         type: IS_LOGGED,
-        islogged
+        IsLoggedIn
     }
 }
 
-export function LoginData(logindata) {
+export function LoginData(LoginData) {
     return {
         type: LOGIN_DATA,
-        logindata
+        LoginData
     }
 }
 
@@ -34,26 +34,26 @@ export function AvailableDonors(availabledonors) {
     }
 }
 
-export function login() {
+export function Login() {
     return (dispatch) => {
         var provider = new firebase.auth.GoogleAuthProvider();
         firebase.auth().signInWithPopup(provider).then(function (result) {
-            var abc = result.user;
+            var user = result.user;
             console.log("Login SuccessFully");
             dispatch(IsLoggedIn(true))
-            console.log(abc.photoURL);        
-            dispatch(LoginData(abc.photoURL));
+            console.log(user.photoURL);        
+            dispatch(LoginData(user.photoURL));
             browserHistory.replace('/welcome');
 
         }).catch(function (error) {
-            dispatch(error);
+            dispatch(LoginError(error));
         });
     }
 }
 
-export function submit(users, bloodgroup){
+export function SubmitData(users, bloodgroup){
     return(dispatch) => {
         firebase.database().ref('bloodgroup/' + bloodgroup + '/').push({users})
-        browserHistory.replace('/'); 
+        browserHistory.replace('/welcome'); 
     }
 }

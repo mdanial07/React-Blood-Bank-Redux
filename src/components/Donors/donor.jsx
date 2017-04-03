@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { submit, IsLoggedIn } from '../../actions/actions';
+import { SubmitData, IsLoggedIn } from '../../actions/actions';
 import Paper from 'material-ui/Paper';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
@@ -25,26 +25,35 @@ class Donor extends Component {
         super(props);
         this.state = {
             value: 1,
-            blood: '',
+            bloodGroup: '',
         }
     }
 
-    handleChange = (event, index, value) => this.setState({ value });
+     handleChange(e,key){
+         e.preventDefault();
+         this.setState({value: key+1,
+         bloodGroup : e.target.childNodes[0].nodeValue
+        });
+        console.log(this.state.bloodGroup)
+     }
 
     submit(ev) {
         ev.preventDefault();
+        console.log("dadadad");
+        
         const newDonor = {
-            name: this.props.LoginData.displayName,
-            email: this.props.LoginData.email,
-            photo: this.props.LoginData.photoURL,
+            // name: this.props.LoginData.displayName,
+            // email: this.props.LoginData.email,
+            // photo: this.props.LoginData.photoURL,
             weight: this.refs.weight.getValue(),
             age: this.refs.age.getValue(),
             address: this.refs.address.getValue(),
-            blood: this.state.blood,
+            bloodGroup: this.state.bloodGroup,
         }
+            console.log(newDonor, this.state.bloodGroup)
 
         // console.log(newDonor, this.state.blood );
-        this.props.submit(newDonor,this.state.blood);
+        this.props.SubmitData(newDonor, this.state.bloodGroup);
 
     }
 
@@ -77,17 +86,14 @@ class Donor extends Component {
                             floatingLabelText="Your Address"
                             required="required"
                         /><br />
-                        <DropDownMenu value={this.state.value} onChange={this.handleChange} openImmediately={true}>
-                            <MenuItem value={1} primaryText="AB+" />
-                            <MenuItem value={2} primaryText="AB-" />
-                            <MenuItem value={3} primaryText="A-" />
-                            <MenuItem value={4} primaryText="A+" />
-                            <MenuItem value={5} primaryText="B+" />
-                            <MenuItem value={6} primaryText="B-" />
-                            <MenuItem value={7} primaryText="O+" />
-                            <MenuItem value={8} primaryText="O-" />
+                        <DropDownMenu value={this.state.value} onChange={this.handleChange.bind(this)} openImmediately={true}>
+                            <MenuItem value={1} primaryText="Never" />
+                            <MenuItem value={2} primaryText="Every Night" />
+                            <MenuItem value={3} primaryText="Weeknights" />
+                            <MenuItem value={4} primaryText="Weekends" />
+                            <MenuItem value={5} primaryText="Weekly" />
                         </DropDownMenu>
-                        <RaisedButton label="Primary" primary={true} style={style2} />
+                        <RaisedButton label="Primary" primary={true} style={style2} onClick={this.submit.bind(this)} />
                     </form>
                 </Paper>
 
@@ -97,11 +103,11 @@ class Donor extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ IsLoggedIn, submit }, dispatch);
+    return bindActionCreators({ IsLoggedIn, SubmitData }, dispatch);
 }
 
-function mapStateToProps({ isLogged, LoginData }) {
-    return { isLogged, LoginData }
+function mapStateToProps({ islogged, LoginData }) {
+    return { islogged, LoginData }
 }
 
 

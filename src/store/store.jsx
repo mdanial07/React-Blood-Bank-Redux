@@ -6,10 +6,10 @@ import CombineReducers from '../reducers/reducers'
 
 // var Logger = createLogger();
 
-const configureStore = (initialState) => createStore(
+const confStore = (initialState) => createStore(
     CombineReducers,
     initialState,
     applyMiddleware(thunk)
 );
 
-export default configureStore;
+export default confStore;

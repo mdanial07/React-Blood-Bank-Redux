@@ -7,7 +7,7 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import * as firebase from 'firebase';
 import { Link } from 'react-router';
-import { isLoggedIn, login } from '../../actions/actions';
+import { IsLoggedIn, Login, LoginData } from '../../actions/actions';
 import { browserHistory } from "react-router";
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -40,12 +40,13 @@ class Header extends Component {
     componentDidMount() {
         firebase.auth().onAuthStateChanged((user) => {
             if (user) {
+                this.props.LoginData(user);
                 this.props.IsLoggedIn(true);
                 browserHistory.replace('/welcome');
             }
-            else{
+            else {
                 this.props.LoginData(null);
-                this.props.isLoggedIn(false);
+                this.props.IsLoggedIn(false);
                 browserHistory.replace('/');
             }
             console.log("is logged in", this.props.isLogged);
@@ -53,17 +54,8 @@ class Header extends Component {
     }
 
     login(ev) {
-        var provider = new firebase.auth.GoogleAuthProvider();
-        firebase.auth().signInWithPopup(provider).then(function (result) {
-            var abc = result.abc;
-            console.log("Login SuccessFully");
-            console.log(abc.photoURL);
-        }).catch(function (error) {
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            var email = error.email;
-            var credential = error.credential;
-        });
+        ev.preventDefault();
+        this.props.Login();
 
         // var provider = new firebase.auth.FacebookAuthProvider();
         // firebase.auth().signInWithPopup(provider).then(function (result) {
@@ -93,8 +85,8 @@ class Header extends Component {
     }
 }
 
-function mapDispatchToProps(dipatch) {
-    return bindActionCreators({ isLoggedIn, login });
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({ IsLoggedIn, Login, LoginData}, dispatch);
 }
 function mapStateToProps({ isLogged, LoginError }) {
     return { isLogged, LoginError };
