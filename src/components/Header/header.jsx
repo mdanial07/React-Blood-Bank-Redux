@@ -49,7 +49,7 @@ class Header extends Component {
                 this.props.IsLoggedIn(false);
                 browserHistory.replace('/');
             }
-            console.log("is logged in", this.props.isLogged);
+            console.log("is logged in", this.props.IsLogged);
         })
     }
 
@@ -75,7 +75,7 @@ class Header extends Component {
             <div>
                 <center>
                     <AppBar className="abc" style={style.header}
-                        title={<span style={styles.paper} >Blood Bank</span>}
+                        title={<span style={styles.paper} >Blood Donate System</span>}
                         iconElementLeft={<IconButton></IconButton>}
                         iconElementRight={<FlatButton label="SignIn with Google" style={style} onClick={this.login}> </ FlatButton>}
                     />
@@ -88,8 +88,8 @@ class Header extends Component {
 function mapDispatchToProps(dispatch) {
     return bindActionCreators({ IsLoggedIn, Login, LoginData}, dispatch);
 }
-function mapStateToProps({ isLogged, LoginError }) {
-    return { isLogged, LoginError };
+function mapStateToProps({ IsLogged, LoginError }) {
+    return { IsLogged, LoginError };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Header);
 
