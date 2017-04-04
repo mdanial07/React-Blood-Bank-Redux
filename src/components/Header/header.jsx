@@ -49,7 +49,7 @@ class Header extends Component {
                 this.props.IsLoggedIn(false);
                 browserHistory.replace('/');
             }
-            console.log("is logged in", this.props.isLogged);
+            console.log("Login SuccessFully", this.props.isLogged);
         })
     }
 
@@ -86,7 +86,7 @@ class Header extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ IsLoggedIn, Login, LoginData}, dispatch);
+    return bindActionCreators({setLOginData: IsLoggedIn, Login, LoginData}, dispatch);
 }
 function mapStateToProps({ isLogged, LoginError }) {
     return { isLogged, LoginError };

@@ -34,7 +34,7 @@ class Donor extends Component {
         console.log("dadadad");
 
         const newDonor = {
-            // name: this.props.LoginData.displayName,
+            // name: this.props.LoginData.email,
             // email: this.props.LoginData.email,
             // photo: this.props.LoginData.photoURL,
             weight: this.refs.weight.getValue(),
