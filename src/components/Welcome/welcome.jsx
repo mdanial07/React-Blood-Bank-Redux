@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
 import { Link } from 'react-router';
 import AppBar from 'material-ui/AppBar';
 import TextField from 'material-ui/TextField';
@@ -11,10 +12,13 @@ import { browserHistory } from "react-router";
 import { connect } from 'react-redux';
 import IconButton from 'material-ui/IconButton';
 import Paper from 'material-ui/Paper';
-import FlatButton from 'material-ui/FlatButton';
 import { IsLoggedIn, BloodSort, Signout } from '../../actions/actions';
 
 
+
+function handleTouchTap() {
+    alert('onTouchTap triggered on the title component');
+}
 const style = {
     backgroundColor: '#d24231',
     header: {
@@ -34,6 +38,7 @@ const style = {
     }
 };
 
+    
 const styles = {
     paper: {
         fontSize: 30,
@@ -99,6 +104,34 @@ class Welcome extends Component {
     signout(ev) {
         ev.preventDefault();
         this.props.Signout();
+        // var provider = new firebase.auth.FacebookAuthProvider();
+        // firebase.auth().signInWithPopup(provider).then(function (result) {
+        //     var token = result.credential.accessToken;
+        //     var user = result.user;
+        // }).catch(function (error) {
+        //     var errorCode = error.code;
+        //     var errorMessage = error.message;
+        //     var email = error.email;
+        //     var credential = error.credential;
+        //     // ...
+        // });
+    }
+    componentDidMount() {
+        firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                this.props.LoginData(user);
+                this.props.IsLoggedIn(false);
+                browserHistory.replace('/welcome');
+            }
+            
+            console.log("is logged in", this.props.isLogged);
+        })
+    }
+
+    signout(ev) {
+        ev.preventDefault();
+        this.props.Signout();
+
         // var provider = new firebase.auth.FacebookAuthProvider();
         // firebase.auth().signInWithPopup(provider).then(function (result) {
         //     var token = result.credential.accessToken;
@@ -184,18 +217,31 @@ class Welcome extends Component {
                     <br />
                     <br />
                     {/*<button onClick={this.check.bind(this)}> ok</button>*/}
+
+                        {/*title={<span style={styles.paper} >Blood Bank</span>}
+                        iconElementLeft={<IconButton></IconButton>}
+                        // iconElementRight={<FlatButton label="Sign-Out" style={style} onClick={this.signout.bind(this)}> </ FlatButton>}
+                        iconElementRight={<FlatButton style={{ "visibility": this.props.IsLoggedIn === true ? "visible" : "hidden" }} label="Sign-Out" onClick={this.props.Signout} />}
+
+                  */}
+                  
+                
                 </center>
+                
+
             </div>
         )
     }
 }
 
 function mapDispatchToProps(dispatch) {
+
     return bindActionCreators({ IsLoggedIn, Signout, BloodSort }, dispatch);
 }
 
 function mapStateToProps({ Islogged, donors, LoginData }) {
     return { Islogged, donors };
+
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Welcome);

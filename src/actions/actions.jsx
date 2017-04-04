@@ -38,11 +38,11 @@ export function AvailableDonors(AvailableDonors) {
 export function Login() {
     return (dispatch) => {
         var provider = new firebase.auth.GoogleAuthProvider();
-        firebase.auth().signInWithPopup(provider).then(function (result) {
-            var user = result.user;
+        firebase.auth().signInWithPopup(provider).then((user) => {
             console.log("Login SuccessFully");
             dispatch(IsLoggedIn(true))
             console.log(user.photoURL);
+            console.log(user.emailqq);        
             dispatch(LoginData(user.photoURL));
             browserHistory.replace('/welcome');
 
@@ -128,3 +128,4 @@ export function BloodSort(BloodSort) {
         dispatch(AvailableDonors(donorsArray));
     }
 }
+
