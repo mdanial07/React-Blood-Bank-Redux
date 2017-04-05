@@ -9,8 +9,6 @@ import * as firebase from 'firebase';
 import { Link } from 'react-router';
 
 
-
-
 function handleTouchTap() {
     alert('onTouchTap triggered on the title component');
 }
@@ -47,18 +45,7 @@ class Login extends Component {
             var errorMessage = error.message;
             var email = error.email;
             var credential = error.credential;
-        });
-        // var provider = new firebase.auth.FacebookAuthProvider();
-        // firebase.auth().signInWithPopup(provider).then(function (result) {
-        //     var token = result.credential.accessToken;
-        //     var user = result.user;
-        // }).catch(function (error) {
-        //     var errorCode = error.code;
-        //     var errorMessage = error.message;
-        //     var email = error.email;
-        //     var credential = error.credential;
-        //     // ...
-        // });
+        });      
     }
 
     render() {

@@ -9,12 +9,12 @@ import * as firebase from 'firebase';
 import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
 import Toggle from 'material-ui/Toggle';
 import { browserHistory } from "react-router";
+import Avatar from 'material-ui/Avatar';
 import { connect } from 'react-redux';
+import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
 import IconButton from 'material-ui/IconButton';
 import Paper from 'material-ui/Paper';
 import { IsLoggedIn, BloodSort, Signout } from '../../actions/actions';
-
-
 
 function handleTouchTap() {
     alert('onTouchTap triggered on the title component');
@@ -22,7 +22,6 @@ function handleTouchTap() {
 const style = {
     backgroundColor: '#d24231',
     header: {
-
         backgroundColor: 'cherry',
     },
     abc: {
@@ -31,14 +30,13 @@ const style = {
     },
     paper: {
         height: 'auto',
-        width: '60%',
-        margin: 20,
+        width: '70%',
+        margin: 0,
         textAlign: 'center',
         display: 'inline-block',
     }
 };
 
-    
 const styles = {
     paper: {
         fontSize: 30,
@@ -54,34 +52,7 @@ class Welcome extends Component {
             value: 1
         };
     }
-    handleExpandChange = (expanded) => {
-        this.setState({ expanded: expanded });
-    };
-
-    handleToggle = (event, toggle) => {
-        this.setState({ expanded: toggle });
-    };
-
-    handleExpand = () => {
-        this.setState({ expanded: true });
-    };
-
-    handleReduce = () => {
-        this.setState({ expanded: false });
-    };
-    componentDidMount() {
-        // firebase.auth().onAuthStateChanged((user) => {
-        //     if (user) {
-        //         this.props.LoginData(user);
-        //         this.props.IsLoggedIn(false);
-        //         browserHistory.replace('/welcome');
-        //     }
-        //     console.log("is logged in", this.props.IsLogged);
-        // })
-        // this.props.BloodSort("AB+");
-        // console.log(this.props.LoginData);
-    }
-
+   
     componentWillReveiveProps(prop) {
         console.log(this.prop.donors);
     }
@@ -90,40 +61,14 @@ class Welcome extends Component {
         e.preventDefault();
         var bloodGroup = e.target.value;
         console.log(e.target.value);
-        // this.setState({ value: 1 + key });
-        // var bloodGroup = e.target.childNodes[0].nodeValue;
-        // console.log(bloodGroup);
         this.props.BloodSort(bloodGroup);
-        console.log(this.props.donors)
-    }
-    // check() {
-    //     this.props.BloodSort("A+");
-    //     console.log(this.props.donors)
-    // }
-
-    signout(ev) {
-        ev.preventDefault();
-        this.props.Signout();
-        // var provider = new firebase.auth.FacebookAuthProvider();
-        // firebase.auth().signInWithPopup(provider).then(function (result) {
-        //     var token = result.credential.accessToken;
-        //     var user = result.user;
-        // }).catch(function (error) {
-        //     var errorCode = error.code;
-        //     var errorMessage = error.message;
-        //     var email = error.email;
-        //     var credential = error.credential;
-        //     // ...
-        // });
     }
     componentDidMount() {
         firebase.auth().onAuthStateChanged((user) => {
             if (user) {
-                this.props.LoginData(user);
                 this.props.IsLoggedIn(false);
                 browserHistory.replace('/welcome');
             }
-            
             console.log("is logged in", this.props.isLogged);
         })
     }
@@ -131,18 +76,6 @@ class Welcome extends Component {
     signout(ev) {
         ev.preventDefault();
         this.props.Signout();
-
-        // var provider = new firebase.auth.FacebookAuthProvider();
-        // firebase.auth().signInWithPopup(provider).then(function (result) {
-        //     var token = result.credential.accessToken;
-        //     var user = result.user;
-        // }).catch(function (error) {
-        //     var errorCode = error.code;
-        //     var errorMessage = error.message;
-        //     var email = error.email;
-        //     var credential = error.credential;
-        //     // ...
-        // });
     }
 
     render() {
@@ -152,18 +85,13 @@ class Welcome extends Component {
                     <AppBar className="abc" style={style.header}
                         title={<span style={styles.paper} >Blood Donate System</span>}
                         iconElementLeft={<IconButton></IconButton>}
-                        // iconElementRight={<FlatButton label="Sign-Out" style={style} onClick={this.signout.bind(this)}> </ FlatButton>}
                         iconElementRight={<FlatButton label="Sign-Out" onClick={this.props.Signout} />}
                     />
-                    <br />
-                    <br />
+                    <br /><br />
                     <Link to="/donor">
-                        <RaisedButton primary={true} label="Donate Blood" />
+                        <RaisedButton  backgroundColor="#CD0000" labelColor="#ffffff"label="Donate Blood" />
                     </Link>
-                    <br />
-                    <br />
-                    <br />
-                    <br />
+                    <br /><br /><br /><br />
                     <select ref="bloodGroup" onChange={this.handleChange.bind(this)} style={{ marginRight: 18, fontSize: 20 }}>
                         <option value="Select Blood">Select Blood</option>
                         <option value="AB+">AB+</option>
@@ -175,60 +103,36 @@ class Welcome extends Component {
                         <option value="A-">A-</option>
                         <option value="AB-">AB-</option>
                     </select>
-                    <br />
-                    {/*<Paper style={style.paper} zDepth={1} >
-                        <Card expanded={this.state.expanded} onExpandChange={this.handleExpandChange}>
-                            <CardHeader style={style.abc}
-                                title="URL Avatar"
-                                subtitle="Subtitle"
-                                avatar="images/ok-128.jpg"
-                                actAsExpander={true}
-                            />
-                        </Card>
-                    </Paper>*/}
-                    <br />
-                    <br />
-                    {/*<span>Danial</span>*/}
-
-                    {this.props.donors.map((val, i) => {
-
-                        return (
-                            <div>
-                                <Paper style={style.paper} zDepth={1} >
-                                    <Card expanded={this.state.expanded} onExpandChange={this.handleExpandChange}>
-                                        <CardHeader style={style.abc}
-                                            title={val.age}
-                                            subtitle={val.bloodGroup}
-                                            avatar="images/ok-128.jpg"
-                                            actAsExpander={true}
-                                        />
-                                    </Card>
-                                </Paper>
-                                {/*<div key={i}>
-                                    <span>{val.age}</span>
-                                    <span>{val.bloodGroup}</span>
-                                    <span>{val.wight}</span>
-                                    <span>{val.address}</span>
-                                </div>*/}
-                            </div>
-                        )
-                    })}
-
+                    <br /><br/><br/>
+                    <Paper style={style.paper} zDepth={1} >
+                        <Table>
+                            <TableHeader>
+                                <TableRow>
+                                    <TableHeaderColumn>Image</TableHeaderColumn>
+                                    <TableHeaderColumn>ID</TableHeaderColumn>
+                                    <TableHeaderColumn>Name</TableHeaderColumn>
+                                    <TableHeaderColumn>Age</TableHeaderColumn>
+                                    <TableHeaderColumn>Blood Group</TableHeaderColumn>
+                                </TableRow>
+                            </TableHeader>
+                            <TableBody>
+                                {this.props.donors.map((val, i) => {
+                                    return (
+                                        <TableRow key={i}>
+                                            <TableRowColumn>{i + 1}</TableRowColumn>
+                                            <TableRowColumn><Avatar src="images/ok-128.jpg" /></TableRowColumn>
+                                            <TableRowColumn>{val.name}</TableRowColumn>
+                                            <TableRowColumn>{val.age}</TableRowColumn>
+                                            <TableRowColumn>{val.bloodGroup}</TableRowColumn>
+                                        </TableRow>
+                                    )
+                                })}
+                            </TableBody>
+                        </Table>
+                    </Paper>
                     <br />
                     <br />
-                    {/*<button onClick={this.check.bind(this)}> ok</button>*/}
-
-                        {/*title={<span style={styles.paper} >Blood Bank</span>}
-                        iconElementLeft={<IconButton></IconButton>}
-                        // iconElementRight={<FlatButton label="Sign-Out" style={style} onClick={this.signout.bind(this)}> </ FlatButton>}
-                        iconElementRight={<FlatButton style={{ "visibility": this.props.IsLoggedIn === true ? "visible" : "hidden" }} label="Sign-Out" onClick={this.props.Signout} />}
-
-                  */}
-                  
-                
                 </center>
-                
-
             </div>
         )
     }
@@ -240,12 +144,9 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps({ Islogged, donors, LoginData }) {
-    return { Islogged, donors };
+    return { Islogged, donors, LoginData };
 
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Welcome);
 
-
-
-// export default Welcome;

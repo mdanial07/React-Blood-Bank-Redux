@@ -109,9 +109,6 @@ export function BloodSort(BloodSort) {
                 donors.push(['B-']);
                 break;
 
-            case "AB-":
-                donors.push(['AB-']);
-                break;
         }
         donors.map((v, i) => {
             return v.map((value, index) => {

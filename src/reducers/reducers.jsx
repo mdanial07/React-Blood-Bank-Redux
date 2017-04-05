@@ -12,6 +12,7 @@ function IS_LOGGED_REDUCER(state = false, action) {
 }
 
 function LOGIN_DATA_REDUCER(state = "", action) {
+    // console.log(action.LoginData)
     switch (action.type) {
         case LOGIN_DATA:
             return action.LoginData;

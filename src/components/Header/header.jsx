@@ -57,7 +57,6 @@ class Header extends Component {
     login(ev) {
         ev.preventDefault();
         this.props.Login();
-
         // var provider = new firebase.auth.FacebookAuthProvider();
         // firebase.auth().signInWithPopup(provider).then(function (result) {
         //     var token = result.credential.accessToken;
@@ -78,7 +77,7 @@ class Header extends Component {
                     <AppBar className="abc" style={style.header}
                         title={<span style={styles.paper} >Blood Donate System</span>}
                         iconElementLeft={<IconButton></IconButton>}
-                        iconElementRight={<FlatButton label="SignIn with Google" style={style} onClick={this.login}> </ FlatButton>}
+                        iconElementRight={<FlatButton label="SignIn with Facebook" style={style} onClick={this.login}> </ FlatButton>}
                     />
                 </center>
             </div>
@@ -87,7 +86,7 @@ class Header extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({setLOginData: IsLoggedIn, Login, LoginData}, dispatch);
+    return bindActionCreators({IsLoggedIn, Login, LoginData}, dispatch);
 }
 function mapStateToProps({ IsLogged, LoginError }) {
     return { IsLogged, LoginError };

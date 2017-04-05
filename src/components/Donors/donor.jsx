@@ -3,6 +3,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { SubmitData, IsLoggedIn } from '../../actions/actions';
 import Paper from 'material-ui/Paper';
+import AppBar from 'material-ui/AppBar';
+import FlatButton from 'material-ui/FlatButton';
+import IconButton from 'material-ui/IconButton';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import TextField from 'material-ui/TextField';
@@ -15,10 +18,20 @@ const style = {
     textAlign: 'center',
     display: 'inline-block',
 };
+const styles = {
+    paper: {
+        fontSize: 30,
+        textAlign: 'center',
+    },
+    header: {
+        backgroundColor: 'cherry',
+    }
+};
 
 const style2 = {
     customWidth: {
         width: 200,
+        labelColor: '#ffffff'
     },
 };
 
@@ -44,7 +57,8 @@ class Donor extends Component {
         // console.log("dadadad");
         const newDonor = {
             // name: this.props.LoginData.email,
-            // email: this.props.LoginData.email,
+            // name: this.props.LoginData.displayName,
+            name: this.refs.name.getValue(),
             // photo: this.props.LoginData.photoURL,
             weight: this.refs.weight.getValue(),
             age: this.refs.age.getValue(),
@@ -59,27 +73,36 @@ class Donor extends Component {
     }
 
     handleChange(e, key) {
-        // e.preventDefault();
         var bloodGroup = e.target.value;
         console.log(e.target.value);
         
         this.setState({
             bloodGroup:bloodGroup
         })
-        // this.setState({value: key + 1,
-        // bloodGroup: e.target.childNodes[0].nodeValue
-        // });
         
-        // console.log(this.state.value);
     }
     render() {
         return (
             <div >
 
                 <center>
+                    <AppBar className="abc" style={styles.header}
+                        title={<span style={styles.paper} >Blood Donate System</span>}
+                        iconElementLeft={<IconButton></IconButton>}
+                    />
+                    <br/>       
+                    <br/>       
+                    <br/>       
                     <h1>Donate please if you have enough blood</h1>
                     <form onSubmit={this.submit}>
                         <Paper style={style} zDepth={3} >
+                            <TextField
+                                hintText="Enter your Name"
+                                ref="name"
+                                type="text"
+                                floatingLabelText="Your Name"
+                                required="isRequired"
+                            /><br />
                             <TextField
                                 hintText="Enter Age"
                                 ref="age"
@@ -115,7 +138,7 @@ class Donor extends Component {
                                 <option value="AB-">AB-</option>
                             </select>
 
-                            <RaisedButton label="Donate" type="submit" primary={true} style={style2} />
+                            <RaisedButton label="Donate" type="submit" backgroundColor="#CD0000" labelColor="#ffffff" style={style2} />
                         </Paper>
 
                     </form>
