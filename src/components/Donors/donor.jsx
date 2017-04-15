@@ -24,7 +24,7 @@ const styles = {
         textAlign: 'center',
     },
     header: {
-        backgroundColor: 'cherry',
+        backgroundColor: '#CD0000',
     }
 };
 

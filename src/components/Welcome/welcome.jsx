@@ -22,7 +22,7 @@ function handleTouchTap() {
 const style = {
     backgroundColor: '#d24231',
     header: {
-        backgroundColor: 'cherry',
+        backgroundColor: '#CD0000',
     },
     abc: {
         width: '100%',

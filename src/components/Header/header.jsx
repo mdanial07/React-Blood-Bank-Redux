@@ -7,7 +7,7 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import * as firebase from 'firebase';
 import { Link } from 'react-router';
-import { IsLoggedIn, Login, LoginData } from '../../actions/actions';
+import { IsLoggedIn, Login } from '../../actions/actions';
 import { browserHistory } from "react-router";
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -20,7 +20,7 @@ const style = {
     backgroundColor: '#d24231',
     header: {
 
-        backgroundColor: 'cherry',
+        backgroundColor: '#CD0000',
     }
 };
 const styles = {
@@ -40,12 +40,12 @@ class Header extends Component {
     componentDidMount() {
         firebase.auth().onAuthStateChanged((user) => {
             if (user) {
-                this.props.LoginData(user);
+                // this.props.LoginData(user);
                 this.props.IsLoggedIn(true);
                 browserHistory.replace('/welcome');
             }
             else {
-                this.props.LoginData(null);
+                // this.props.LoginData(null);
                 this.props.IsLoggedIn(false);
                 browserHistory.replace('/');
             }
@@ -77,7 +77,7 @@ class Header extends Component {
                     <AppBar className="abc" style={style.header}
                         title={<span style={styles.paper} >Blood Donate System</span>}
                         iconElementLeft={<IconButton></IconButton>}
-                        iconElementRight={<FlatButton label="SignIn with Facebook" style={style} onClick={this.login}> </ FlatButton>}
+                        iconElementRight={<FlatButton label="Login with Gmail" style={style} onClick={this.login}> </ FlatButton>}
                     />
                 </center>
             </div>
@@ -86,7 +86,7 @@ class Header extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({IsLoggedIn, Login, LoginData}, dispatch);
+    return bindActionCreators({IsLoggedIn, Login}, dispatch);
 }
 function mapStateToProps({ IsLogged, LoginError }) {
     return { IsLogged, LoginError };

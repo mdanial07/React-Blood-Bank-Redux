@@ -6,9 +6,9 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { Router, Route, IndexRoute, browserHistory } from "react-router";
 import { Signup, Login, Header,Welcome,Donor } from './components'
 import './index.css';
-import configureStore from './store/store';
+import confStore from './store/store';
 
-const store = configureStore();
+const store = confStore();
 
 
 // Initialize Firebase
